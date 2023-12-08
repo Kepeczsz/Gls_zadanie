@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Gls_Etykiety.Models;
 
-namespace Gls_Etykiety.Models
+public class ConsignsIDsArray
 {
-    internal class ConsignsIdArray
-    {
-    }
+    public List<int> ConsignsIDs { get; set; }
 }

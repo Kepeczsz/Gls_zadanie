@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Gls_Etykiety.Models;
+namespace Gls_Etykiety.Models.JsonResponses;
 
 internal class SessionResponse
 {

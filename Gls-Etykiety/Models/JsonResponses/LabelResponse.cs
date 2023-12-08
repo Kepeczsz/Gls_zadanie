@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Gls_Etykiety.Models.JsonResponses;
 
-namespace Gls_Etykiety.Models
+public class LabelResponse
 {
-    internal class LabelResponse
-    {
-    }
+    public Label Label { get; set; } = default!;
 }

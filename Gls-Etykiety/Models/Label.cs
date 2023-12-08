@@ -6,7 +6,7 @@ public class Label
 {
     public Guid Id { get; set; } = default!;
 
-    [JsonProperty("Label")]
+    [JsonProperty("labels")]
     public string Data { get; set; } = default!;
 
     public Guid UserId { get; set; }
