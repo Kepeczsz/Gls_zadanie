@@ -11,7 +11,6 @@ namespace Gls_Etykiety.Domain;
 
 public class LabelDbContextFactory : IDesignTimeDbContextFactory<LabelDbContext>
 {
-    /// <inheritdoc/>
     public LabelDbContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -20,7 +19,7 @@ public class LabelDbContextFactory : IDesignTimeDbContextFactory<LabelDbContext>
             .Build();
 
         var optionsBuilder = new DbContextOptionsBuilder<LabelDbContext>();
-        optionsBuilder.UseSqlServer(configuration.GetConnectionString("Database"));
+        optionsBuilder.UseSqlServer(configuration.GetConnectionString("Db"));
 
         return new LabelDbContext(optionsBuilder.Options);
     }

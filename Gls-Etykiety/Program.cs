@@ -7,10 +7,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols;
 
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Environment.CurrentDirectory)
+    .AddJsonFile("local.settings.json")
+    .AddEnvironmentVariables()
+    .Build();
+
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults(builder =>
     {
         builder.UseMiddleware<ExceptionHandlingMiddleware>();
+
+        builder.Services.AddDbContextFactory<LabelDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Db")));
     })
     .ConfigureServices(services =>
     {
@@ -18,11 +26,6 @@ var host = new HostBuilder()
         services.ConfigureFunctionsApplicationInsights();
 
 
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(Environment.CurrentDirectory)
-            .AddJsonFile("local.settings.json")
-            .AddEnvironmentVariables()
-            .Build();
 
         services.AddDbContext<LabelDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Db")));
 
