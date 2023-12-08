@@ -76,6 +76,8 @@ public class GetLabels
 
                         LabelResponse labelResponse = JsonConvert.DeserializeObject<LabelResponse>(getLabelResponse.Content);
 
+                        labelResponse.Label.UserId = user.Id;
+
                         labels.Add(labelResponse.Label);
                     }
 
