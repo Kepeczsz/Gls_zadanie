@@ -132,9 +132,8 @@ public class GetLabels
             byte[] convertedDataToBytes = Convert.FromBase64String(label.Data);
             var dataToAppend = Encoding.UTF8.GetString(convertedDataToBytes);
 
-            var savedLabel = new Label();
-            savedLabel.Data = dataToAppend;
-            savedLabel.UserId = userId;
+            label.Data = dataToAppend;
+            label.UserId = userId;
         }
 
         return labels;
