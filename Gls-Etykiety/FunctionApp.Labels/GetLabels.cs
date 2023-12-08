@@ -38,13 +38,13 @@ public class GetLabels
 
             foreach (var user in users)
             {
-                string sessionId = await LogInGlsApi(user.username, user.password);
+                string sessionId = await GetSessionId(user.username, user.password);
 
                 var packageIdsList = await GetPackageIdListFromGlsApi(sessionId);
 
                 var labels = await GetPackagesFromGlsApi(packageIdsList, sessionId);
 
-                var convertedLabels = ConvertPackagesDataToBinary(labels, user.Id);
+                var convertedLabels = ConvertPackagesDataFromBase64ToString(labels, user.Id);
 
                 context.Labels.AddRange(convertedLabels);
                 await context.SaveChangesAsync();
@@ -55,7 +55,7 @@ public class GetLabels
         return new StatusCodeResult(200);
     }
 
-    public static async Task<string> LogInGlsApi(string username, string password)
+    public static async Task<string> GetSessionId(string username, string password)
     {
         var logInRequest = new RestRequest(@"\adelogin", Method.Post)
         .AddJsonBody(new { username = username, password = password });
@@ -100,9 +100,9 @@ public class GetLabels
         return packageIdsList;
     }
 
-    public static async Task<List<LabelData>> GetPackagesFromGlsApi(List<int> packageIdsList, string sessionId)
+    public static async Task<List<Label>> GetPackagesFromGlsApi(List<int> packageIdsList, string sessionId)
     {
-        List<LabelData> labels = new List<LabelData>();
+        List<Label> labels = new List<Label>();
 
         foreach (int id in packageIdsList)
         {
@@ -123,15 +123,17 @@ public class GetLabels
         return labels;
     }
 
-    public List<Label> ConvertPackagesDataToBinary(List<LabelData> labelData, Guid userId)
+    public List<Label> ConvertPackagesDataFromBase64ToString(List<Label> labelData, Guid userId)
     {
         List<Label> labels = new List<Label>();
 
         foreach(var label in labelData)
         {
             byte[] convertedDataToBytes = Convert.FromBase64String(label.Data);
+            var dataToAppend = Encoding.UTF8.GetString(convertedDataToBytes);
+
             var savedLabel = new Label();
-            savedLabel.Data = convertedDataToBytes;
+            savedLabel.Data = dataToAppend;
             savedLabel.UserId = userId;
         }
 

@@ -61,8 +61,7 @@ public class PostLabels
 
                 foreach (var label in labelsToSend)
                 {   
-                    var dataToAppend = Encoding.UTF8.GetString(label.Data);
-                    stringBuilder.Append(dataToAppend);
+                    stringBuilder.Append(label.Data);
                 }
 
                 

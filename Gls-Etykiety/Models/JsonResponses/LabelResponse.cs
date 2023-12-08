@@ -2,5 +2,5 @@
 
 public class LabelResponse
 {
-    public LabelData Label { get; set; } = default!;
+    public Label Label { get; set; } = default!;
 }
