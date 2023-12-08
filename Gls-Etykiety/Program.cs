@@ -1,3 +1,4 @@
+using Gls_Etykiety.Configuration;
 using Gls_Etykiety.Domain;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureFunctionsWorkerDefaults(builder =>
+    {
+        builder.UseMiddleware<ExceptionHandlingMiddleware>();
+    })
     .ConfigureServices(services =>
     {
         services.AddApplicationInsightsTelemetryWorkerService();

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gls_Etykiety.Configuration
+namespace Gls_Etykiety.Models
 {
-    internal class ExceptionHandlingMiddleware
+    internal class ConsignsIdArray
     {
     }
 }
