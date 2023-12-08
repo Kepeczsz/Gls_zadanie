@@ -57,18 +57,11 @@ public class PostLabels
 
                 Document document = new Document(pdf);
 
-                StringBuilder stringBuilder = new StringBuilder();
 
                 foreach (var label in labelsToSend)
-                {   
-                    stringBuilder.Append(label.Data);
+                {
+                    document.Add(new Paragraph(label.Data));
                 }
-
-                
-
-                document.Add(new Paragraph(stringBuilder.ToString()));
-
-                stringBuilder.Clear();
 
                 var sendLabelRequest = new RestRequest(@"/print", Method.Post);
                 sendLabelRequest.AddHeader("Content-Type", "binary");
