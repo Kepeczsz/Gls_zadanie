@@ -20,18 +20,22 @@ public class GetLabels
         _contextFactory = contextFactory;
     }
 
+    /// <summary>
+    /// TimeTrigger which runs every 10 minutes.
+    /// Firstly, it connects with data base via dbcontextFactory
+    /// We call GetSessionId which, uses "adeLogin" functionality from gls api to return session id
+    /// Then we use GetPackageIdListFromGlsApi which, uses "adePreparingBox_GetConsignIDs" functionality from gls api  to return list of packages ids
+    /// after first two methods, we have everything we need to get packages, so we call GetLabelsFromGlsApi, which returns labels that we need.
+    /// Data in labels is formatted in Base64, so before saving labels to database, we need to convert data to string, thats why we call ConvertPackagesDataFromBase64ToString
+    /// it returns list of labels, with converted data.
+    /// In the end we save labels to database, so we can use with httpTrigger.
+    /// </summary>
+    /// <param name="myTimer"></param>
+    /// <returns></returns>
 
     [Function("SaveLabelsToDatabase")]
     public async Task<IActionResult> Run([TimerTrigger("0 */10 * * * *")] TimerInfo myTimer)
     {
-        // zaloguj sie
-        // zwróæ session id
-        // pobierz id paczek ( potrzebne session Id )
-        // pobierz etykiety ( potrzebne session Id, Id paczki )
-        // zapisz Etykiety do bazy
-
-        
-
         using (var context = _contextFactory.CreateDbContext())
         {
             var users = context.Users.ToList();
@@ -42,7 +46,7 @@ public class GetLabels
 
                 var packageIdsList = await GetPackageIdListFromGlsApi(sessionId);
 
-                var labels = await GetPackagesFromGlsApi(packageIdsList, sessionId);
+                var labels = await GetLabelsFromGlsApi(packageIdsList, sessionId);
 
                 var convertedLabels = ConvertPackagesDataFromBase64ToString(labels, user.Id);
 
@@ -100,7 +104,7 @@ public class GetLabels
         return packageIdsList;
     }
 
-    public static async Task<List<Label>> GetPackagesFromGlsApi(List<int> packageIdsList, string sessionId)
+    public static async Task<List<Label>> GetLabelsFromGlsApi(List<int> packageIdsList, string sessionId)
     {
         List<Label> labels = new List<Label>();
 

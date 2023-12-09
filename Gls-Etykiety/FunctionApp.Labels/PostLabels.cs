@@ -31,7 +31,11 @@ public class PostLabels
 
 
     /// <summary>
-    /// This function need Id of user which is guid in post method.
+    /// This function need Id of user for which method should be exectuted,
+    /// Parameter we need to pass in jsonBody is " id "  in guid format for post method.
+    /// If we get valid userId, we create scope, in which we create pdf file for every 10 labels
+    /// we do that, because printer can take only 10 labels, in post method, then we add it as Paragraph, which creates new pdf page for every label,
+    /// then we send it via mojadrukarka api.
     /// </summary>
     /// <param name="req"></param>
     /// <returns></returns>
@@ -50,7 +54,7 @@ public class PostLabels
 
             for(int i = 0; i < labels.Count; i+=10)
             {
-                var labelsToSend = labels.Skip(i).Take(10).ToList();
+                var labelsToSend = labels.Skip(i).Take(Math.Min(10, labels.Count - i)).ToList();
 
                 PdfWriter writer = new PdfWriter("Labels.pdf");
                 PdfDocument pdf = new PdfDocument(writer);
