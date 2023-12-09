@@ -1,0 +1,10 @@
+{
+    "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=glsetykiety;AccountKey=Lo4gtPioViryWMVN8EGz05V9Lq8NwR3CLFkZdBQ/HHgIUlIfVknkIdcAlReOvKMhg7Twnk7HZTgI+AStiVd+5g==;EndpointSuffix=core.windows.net",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+  },
+  "ConnectionStrings": {
+    "Db": "Data Source=.\\SQLEXPRESS;Initial Catalog=Gls_GBS_DOBRZE_Jest12; Integrated Security=True;TrustServerCertificate=True"
+  }
+}

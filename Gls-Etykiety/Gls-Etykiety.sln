@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gls-Etykiety", "Gls-Etykiety.csproj", "{4CADE8E7-9DD6-488B-874D-F8CE32333EFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gls-Etykiety", "Gls-Etykiety.csproj", "{4CADE8E7-9DD6-488B-874D-F8CE32333EFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5E29221D-E425-4E34-A598-1F0127741AAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelsTests", "..\LabelsTests\LabelsTests.csproj", "{67321CE5-18F4-400D-91F5-922ACAC5CB9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{4CADE8E7-9DD6-488B-874D-F8CE32333EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CADE8E7-9DD6-488B-874D-F8CE32333EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CADE8E7-9DD6-488B-874D-F8CE32333EFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67321CE5-18F4-400D-91F5-922ACAC5CB9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67321CE5-18F4-400D-91F5-922ACAC5CB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67321CE5-18F4-400D-91F5-922ACAC5CB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67321CE5-18F4-400D-91F5-922ACAC5CB9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{67321CE5-18F4-400D-91F5-922ACAC5CB9C} = {5E29221D-E425-4E34-A598-1F0127741AAE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {593A8396-4585-43F1-886F-41128D68CA74}
