@@ -99,7 +99,7 @@ public class GetLabels
             else throw new Exception(message: packageIdsResponse.ErrorMessage);
             
         }
-        while (startId > 0);
+        while (startId < 100);
 
         return packageIdsList;
     }
