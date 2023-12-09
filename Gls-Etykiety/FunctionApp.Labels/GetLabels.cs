@@ -1,4 +1,5 @@
 using Gls_Etykiety.Domain;
+using Gls_Etykiety.Exceptions;
 using Gls_Etykiety.Models;
 using Gls_Etykiety.Models.JsonResponses;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Net;
 using System.Text;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 namespace Gls_Etykiety.azure_functions;
@@ -56,7 +58,7 @@ public class GetLabels
             }
         }
 
-        return new StatusCodeResult(200);
+        return new OkObjectResult(new { Message = "Labels have been saved to the database", StatusCode = (int)HttpStatusCode.OK });
     }
 
     public static async Task<string> GetSessionId(string username, string password)
@@ -75,7 +77,7 @@ public class GetLabels
             return sessionId;
         }
 
-        throw new Exception(message: logInResponse.ErrorMessage);
+        throw new GlsApiException(message: logInResponse.ErrorMessage);
     }
 
     public static async Task<List<int>> GetPackageIdListFromGlsApi(string sessionId)
@@ -96,7 +98,7 @@ public class GetLabels
 
                 startId = consignsIDsResponse.ConsignsIDsArray.ConsignsIDs.LastOrDefault();
             }
-            else throw new Exception(message: packageIdsResponse.ErrorMessage);
+            else throw new GlsApiException(message: packageIdsResponse.ErrorMessage);
             
         }
         while (startId < 99);
@@ -121,7 +123,7 @@ public class GetLabels
 
                 labels.Add(labelResponse.Label);
             }
-            else throw new Exception(message: getLabelResponse.ErrorMessage);
+            else throw new GlsApiException(message: getLabelResponse.ErrorMessage);
         }
 
         return labels;

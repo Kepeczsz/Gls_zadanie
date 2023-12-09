@@ -1,10 +1,6 @@
-using System.Collections;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net;
-using System.Text;
 using Gls_Etykiety.Domain;
+using Gls_Etykiety.Exceptions;
 using Gls_Etykiety.Extensions;
-using Gls_Etykiety.Models;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -12,10 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Microsoft.IdentityModel.Tokens;
 using RestSharp;
 
 namespace Gls_Etykiety.azure_functions;
@@ -31,7 +24,7 @@ public class PostLabels
 
 
     /// <summary>
-    /// This function need Id of user for which method should be exectuted,
+    /// This function needs Id of user for which method should be exectuted,
     /// Parameter we need to pass in jsonBody is " id "  in guid format for post method.
     /// If we get valid userId, we create scope, in which we create pdf file for every 10 labels
     /// we do that, because printer can take only 10 labels, in post method, then we add it as Paragraph, which creates new pdf page for every label,
@@ -52,6 +45,9 @@ public class PostLabels
         {
             var labels = context.Labels.Where(x => x.UserId == userId).ToList();
 
+            if(labels.IsNullOrEmpty())
+                throw new NoDataFoundException(message: "There was no labels to retrive");
+            
             for(int i = 0; i < labels.Count; i+=10)
             {
                 var labelsToSend = labels.Skip(i).Take(Math.Min(10, labels.Count - i)).ToList();
@@ -72,12 +68,6 @@ public class PostLabels
                 sendLabelRequest.AddBody(document);
             }
         }
-
-
-
-
-
-
         return new StatusCodeResult(200);
     }
 

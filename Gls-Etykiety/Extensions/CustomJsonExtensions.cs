@@ -1,6 +1,9 @@
 ﻿
 
+
+using Gls_Etykiety.Exceptions;
 using Newtonsoft.Json.Linq;
+using System.Net;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Gls_Etykiety.Extensions;
@@ -18,6 +21,6 @@ public static class CustomJsonExtensions
             return result;
         }
 
-        throw new Exception(message: "Invalid id was passed");
+        throw new InvalidJsonBodyRequestException(message: "Invalid Id");
     }
 }

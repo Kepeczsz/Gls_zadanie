@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Protocols;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Environment.CurrentDirectory)
@@ -16,6 +15,7 @@ var configuration = new ConfigurationBuilder()
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults(builder =>
     {
+
         builder.UseMiddleware<ExceptionHandlingMiddleware>();
 
         builder.Services.AddDbContextFactory<LabelDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Db")));
