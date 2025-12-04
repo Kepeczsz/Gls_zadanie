@@ -38,7 +38,7 @@ Aplikacja oparta na Azure Functions, która integruje się z API GLS (General Lo
 ## 📁 Project Structure / Struktura Projektu
 
 ```
-Gls_zadanie/
+Repository Root/
 ├── Gls-Etykiety/                    # Main application project
 │   ├── Configuration/               # Application configuration
 │   ├── Domain/                      # Database context and domain logic
@@ -70,12 +70,12 @@ Gls_zadanie/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Kepeczsz/Gls_zadanie.git
-   cd Gls_zadanie
+   git clone <repository-url>
+   cd <repository-directory>
    ```
 
 2. **Configure the database connection**
-   - Update the connection string in `local.settings.json` file
+   - Update the connection string in `Gls-Etykiety/local.settings.json` file
    - Ensure your SQL Server instance is running and accessible
 
 3. **Run database migrations**
@@ -102,12 +102,12 @@ Gls_zadanie/
 
 1. **Sklonuj repozytorium**
    ```bash
-   git clone https://github.com/Kepeczsz/Gls_zadanie.git
-   cd Gls_zadanie
+   git clone <repository-url>
+   cd <repository-directory>
    ```
 
 2. **Skonfiguruj połączenie z bazą danych**
-   - Zaktualizuj connection string w pliku `local.settings.json`
+   - Zaktualizuj connection string w pliku `Gls-Etykiety/local.settings.json`
    - Upewnij się, że instancja SQL Server jest uruchomiona i dostępna
 
 3. **Wykonaj migracje bazy danych**
